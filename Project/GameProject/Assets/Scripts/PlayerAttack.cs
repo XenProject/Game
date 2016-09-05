@@ -7,7 +7,6 @@ public class PlayerAttack : MonoBehaviour {
 	public float coolDown;
 	// Use this for initialization
 	void Start () {
-		target = GameObject.FindGameObjectWithTag("Enemy");
 		attackTimer = 0;
 		coolDown = 2.0f;
 	}
