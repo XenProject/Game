@@ -5,10 +5,10 @@ public class PlayerHealth : MonoBehaviour {
 	public int maxHealth = 200;
 	public int curHealth = 200;
 
-	public float healthBarLength;
+	//public float healthBarLength;
 	// Use this for initialization
 	void Start () {
-		healthBarLength = Screen.width / 4;
+		//healthBarLength = Screen.width / 4;
 	}
 
 	// Update is called once per frame
@@ -16,9 +16,9 @@ public class PlayerHealth : MonoBehaviour {
 		AddjustCurrHealth(0);
 	}
 
-	void OnGUI(){
+	/*void OnGUI(){
 		GUI.Box(new Rect(10, 10, healthBarLength, 20), curHealth + "/" + maxHealth);
-	}
+	}*/
 
 	public void AddjustCurrHealth(int adj){
 		curHealth += adj;
@@ -30,7 +30,7 @@ public class PlayerHealth : MonoBehaviour {
 		if(curHealth > maxHealth){
 			curHealth = maxHealth;
 		}
-		healthBarLength = (Screen.width / 4) * (curHealth / (float)maxHealth);
+		//healthBarLength = (Screen.width / 4) * (curHealth / (float)maxHealth);
 	}
 
 }
