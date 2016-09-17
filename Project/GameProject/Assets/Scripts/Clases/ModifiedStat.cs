@@ -22,7 +22,7 @@ public class ModifiedStat : BaseStat {
 		}
 	}
 
-	public new int AdjustBaseValue{
+	public new int AdjustedBaseValue{
 		get{ return BaseValue + BuffValue + _modValue; }
 	}
 
