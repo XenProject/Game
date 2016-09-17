@@ -17,6 +17,8 @@ public class CharacterGenerator : MonoBehaviour {
 	private const int BUTTON_HEIGHT = 22;
 
 	private int statStartingPos = 40;
+
+	public GUIStyle myStyle;
 	// Use this for initialization
 	void Start () {
 		_toon = new PlayerCharacter();
@@ -53,7 +55,7 @@ public class CharacterGenerator : MonoBehaviour {
 			 										statStartingPos + (cnt * LINE_HEIGHT),//y
 													STAT_LABEL_WIDTH, 										//width
 													LINE_HEIGHT														//height
-							 ),((AttributeName)cnt).ToString());
+							 ),((AttributeName)cnt).ToString()/*, myStyle*/);
 			GUI.Label( new Rect(STAT_LABEL_WIDTH + OFFSET, 						 //x
 													statStartingPos + (cnt * LINE_HEIGHT), //y
 													BASEVALUE_LABEL_WIDTH, 								 //width
