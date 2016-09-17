@@ -21,7 +21,7 @@ public class PlayerAttack : MonoBehaviour {
 		}
 
 		if(Input.GetKeyUp(KeyCode.E)){
-			if(attackTimer == 0){
+			if(attackTimer == 0 && target!=null){
 				Attack(-15);
 				attackTimer = coolDown;
 			}
@@ -39,6 +39,7 @@ public class PlayerAttack : MonoBehaviour {
 			if(direction > 0){
 				EnemyHealth eh = (EnemyHealth)target.GetComponent("EnemyHealth");
 				eh.AddjustCurrHealth(dmg);
+				target.GetComponent<Mob>().DisplayHealth();
 			}
 		}
 	}

@@ -1,18 +1,15 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class Targetting : MonoBehaviour {
+public class TargetMob : MonoBehaviour {
 	public List<Transform> targets;
 	public Transform selectedTarget;
-
-	private Transform myTransform;
 
 	// Use this for initialization
 	void Start () {
 		targets = new List<Transform>();
 		selectedTarget = null;
-		myTransform = transform;
 
 		AddAllEnemies();
 	}
@@ -58,9 +55,10 @@ public class Targetting : MonoBehaviour {
 
 	private void SortTargetsByDistance(){
 		if(targets.Count>0){
+			Transform playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
 			targets.Sort(
 				delegate(Transform t1, Transform t2){
-					return Vector3.Distance(t1.position, myTransform.position).CompareTo(Vector3.Distance(t2.position, myTransform.position));
+					return Vector3.Distance(t1.position, playerTransform.position).CompareTo(Vector3.Distance(t2.position, playerTransform.position));
 					}
 				);
 		}else{
@@ -70,15 +68,23 @@ public class Targetting : MonoBehaviour {
 	}
 
 	private void SelectTarget(){
-		//Renderer er = (Renderer)selectedTarget.GetComponent("Renderer");
-		//er.material.color = Color.green;
+		Transform name = selectedTarget.FindChild("Name");
 
-		PlayerAttack pa = (PlayerAttack)GetComponent("PlayerAttack");
-		pa.target = selectedTarget.gameObject;
+		if(name == null){
+			Debug.LogError("Could not found name on " + selectedTarget.name);
+			return;
+		}
+		name.GetComponent<TextMesh>().text = selectedTarget.GetComponent<Mob>().Name;
+		name.GetComponent<MeshRenderer>().enabled = true;
+		selectedTarget.GetComponent<Mob>().DisplayHealth();
+
+		Messenger<bool>.Broadcast("Show Mob HealthBar", true);
 	}
 
 	private void DeselectTarget(){
+		selectedTarget.FindChild("Name").GetComponent<MeshRenderer>().enabled = false;
 		selectedTarget = null;
+		Messenger<bool>.Broadcast("Show Mob HealthBar", false);
 	}
 
 }

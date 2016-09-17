@@ -6,11 +6,10 @@ public class PlayerHealthBar : MonoBehaviour {
 	public bool _isPlayerHealthBar;
 
 	private float _healthBarLength;
-	private Image _healthBar;
+	public Image _healthBar;
 	private Text _hpText;
 	// Use this for initialization
 	void Start () {
-		_healthBar = gameObject.GetComponent<Image>();
 		_hpText = gameObject.GetComponentInChildren<Text>();
 
 		OnEnable();
@@ -22,21 +21,26 @@ public class PlayerHealthBar : MonoBehaviour {
 	}
 
 	public void OnEnable() {
-		if(_isPlayerHealthBar)
+		if(_isPlayerHealthBar){
 			Messenger<int, int>.AddListener("Player Health Update", OnChangeHealthBarSize);
-		else
+		}else{
+			ToogleDisplay(false);
 			Messenger<int, int>.AddListener("Enemy Health Update", OnChangeHealthBarSize);
+			Messenger<bool>.AddListener("Show Mob HealthBar", ToogleDisplay);
+		}
 	}
 
 	public void OnDisable() {
-		if(_isPlayerHealthBar)
+		if(_isPlayerHealthBar){
 			Messenger<int, int>.RemoveListener("Player Health Update", OnChangeHealthBarSize);
-		else
+		}else{
 			Messenger<int, int>.RemoveListener("Enemy Health Update", OnChangeHealthBarSize);
+			Messenger<bool>.RemoveListener("Show Mob HealthBar", ToogleDisplay);
+		}
 	}
 
 	public void OnChangeHealthBarSize(int curHealth, int maxHealth){
-		Debug.Log("Test Listener: CurrentHealth = " + curHealth + " and MaxHealth = " + maxHealth);
+		//Debug.Log("Test Listener: CurrentHealth = " + curHealth + " and MaxHealth = " + maxHealth);
 		_healthBarLength = curHealth / (float)maxHealth;
 		_healthBar.fillAmount = _healthBarLength;
 		_hpText.text = curHealth + "/" + maxHealth;
@@ -44,6 +48,12 @@ public class PlayerHealthBar : MonoBehaviour {
 
 	public void SetHealthBar(bool b){
 		_isPlayerHealthBar = b;
+	}
+
+	private void ToogleDisplay(bool show){
+		_healthBar.transform.parent.GetComponent<Image>().enabled = show;
+		_healthBar.enabled = show;
+		_healthBar.GetComponentInChildren<Text>().enabled = show;
 	}
 
 }
