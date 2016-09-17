@@ -1,7 +1,4 @@
-using UnityEngine;
-using System.Collections;
-
-public class PlayerCharacter : MonoBehaviour {
+public class PlayerCharacter : BaseCharacter {
 	private PlayerHealth ph;
 	// Update is called once per frame
 	void Start(){

@@ -2,14 +2,17 @@
 
 	public Attribute(){
 		ExpToLevel = 50;
-		LevelModifier = 1.1f;
+		LevelModifier = 1.05f;
 	}
 
-	
+
 }
 
 public enum AttributeName{
 	Vitality,
 	Agility,
-	Intelligence
+	Intelligence,
+	Might,
+	Karma,
+	Speed
 }
