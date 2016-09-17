@@ -53,6 +53,7 @@ public class BaseCharacter : MonoBehaviour {
 	private void SetupPrimaryAttributes(){
 		for(int cnt = 0; cnt < _primaryAttribute.Length; cnt++){
 			_primaryAttribute[cnt] = new Attribute();
+			_primaryAttribute[cnt].Name = ((AttributeName)cnt).ToString();
 		}
 	}
 
@@ -82,16 +83,16 @@ public class BaseCharacter : MonoBehaviour {
 
 	private void SetupVitalModifiers(){
 		//Heatlh
-		Debug.Log("Vitalmod");
-		GetVital((int)VitalName.Health).AddModifier(new ModifyingAttribute(GetPrimaryAttribute((int)AttributeName.Vitality), 1.5f));
+		//Debug.Log("Vitalmod");
+		GetVital((int)VitalName.Health).AddModifier(new ModifyingAttribute(GetPrimaryAttribute((int)AttributeName.Vitality), 25.0f));
 		//Mana
-		GetVital((int)VitalName.Mana).AddModifier(new ModifyingAttribute(GetPrimaryAttribute((int)AttributeName.Intelligence), 1f));
+		GetVital((int)VitalName.Mana).AddModifier(new ModifyingAttribute(GetPrimaryAttribute((int)AttributeName.Intelligence), 20.0f));
 		//Energy
-		GetVital((int)VitalName.Energy).AddModifier(new ModifyingAttribute(GetPrimaryAttribute((int)AttributeName.Agility), 1f));
+		GetVital((int)VitalName.Energy).AddModifier(new ModifyingAttribute(GetPrimaryAttribute((int)AttributeName.Agility), 20.0f));
 	}
 
 	private void SetupSkillModifiers(){
-		Debug.Log("Skill");
+		//Debug.Log("Skill");
 		GetSkill((int)SkillName.Melee).AddModifier(new ModifyingAttribute(GetPrimaryAttribute((int)AttributeName.Vitality), 0.33f));
 		//Ranged
 		GetSkill((int)SkillName.Ranged).AddModifier(new ModifyingAttribute(GetPrimaryAttribute((int)AttributeName.Agility), 0.5f));

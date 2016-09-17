@@ -4,7 +4,7 @@
 	// Use this for initialization
 	void Start () {
 		_curValue = 0;
-		ExpToLevel = 50;
+		ExpToLevel = 30;
 		LevelModifier = 1.1f;
 	}
 

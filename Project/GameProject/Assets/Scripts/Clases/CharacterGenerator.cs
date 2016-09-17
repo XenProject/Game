@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;						//enum
+using UnityEngine.SceneManagement; //LoadScene
 
 public class CharacterGenerator : MonoBehaviour {
 	private PlayerCharacter _toon;
@@ -19,10 +20,14 @@ public class CharacterGenerator : MonoBehaviour {
 	private int statStartingPos = 40;
 
 	public GUIStyle myStyle;
+
+	public GameObject playerPrefab;
 	// Use this for initialization
 	void Start () {
-		_toon = new PlayerCharacter();
-		_toon.Awake();
+		GameObject pc = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity) as GameObject;
+		pc.name = "pc";
+
+		_toon = pc.GetComponent<PlayerCharacter>();
 
 		pointsLeft = STARTING_POINTS;
 		for(int cnt = 0; cnt < Enum.GetValues(typeof(AttributeName)).Length; cnt++){
@@ -42,6 +47,11 @@ public class CharacterGenerator : MonoBehaviour {
 		DisplayAttributes();
 		DisplayVitals();
 		DisplaySkills();
+
+		if(_toon.Name == "" || pointsLeft > 0)
+			DisplayCreateLabel();
+		else
+			DisplayCreateButton();
 	}
 
 	private void DisplayName(){
@@ -89,12 +99,12 @@ public class CharacterGenerator : MonoBehaviour {
 	private void DisplayVitals(){
 		for(int cnt = 0; cnt < Enum.GetValues(typeof(VitalName)).Length; cnt++){
 			GUI.Label( new Rect(OFFSET, 																			//x
-													statStartingPos + ((cnt + 7) * LINE_HEIGHT),  //y
+													statStartingPos + ((cnt + 6) * LINE_HEIGHT),  //y
 													STAT_LABEL_WIDTH, 														//width
 													LINE_HEIGHT																		//height
 							 ),((VitalName)cnt).ToString());
 			GUI.Label( new Rect(STAT_LABEL_WIDTH + OFFSET, 											//x
-													statStartingPos + ((cnt + 7) * LINE_HEIGHT), 		//y
+													statStartingPos + ((cnt + 6) * LINE_HEIGHT), 		//y
 													BASEVALUE_LABEL_WIDTH, 													//width
 													LINE_HEIGHT																			//height
 							 ), _toon.GetVital(cnt).AdjustedBaseValue.ToString());
@@ -119,4 +129,32 @@ public class CharacterGenerator : MonoBehaviour {
 	private void DispalyPointsLeft(){
 		GUI.Label(new Rect(250, 10, 100, 25), "Points Left:" + pointsLeft.ToString());
 	}
+
+	private void DisplayCreateLabel(){
+		GUI.Label(new Rect( Screen.width/2 - 50, statStartingPos + 9*LINE_HEIGHT, 100 ,LINE_HEIGHT ), "Creating...", "Button");
+	}
+
+	private void DisplayCreateButton(){
+		if( GUI.Button(new Rect(Screen.width/2 - 50, 														//x
+												statStartingPos + 9 * LINE_HEIGHT,  //y
+												100, 																					//width
+												LINE_HEIGHT																		//height
+							), "Create"))
+		{
+			GameSettings gsScript = GameObject.Find("__GameSettings").GetComponent<GameSettings>();
+
+			UpdateCurVitalValues();
+
+			gsScript.SaveCharacterData();
+
+			SceneManager.LoadScene(1);
+		}
+	}
+
+	private void UpdateCurVitalValues(){
+		for(int cnt = 0; cnt < Enum.GetValues(typeof(VitalName)).Length; cnt++){
+			_toon.GetVital(cnt).CurValue = _toon.GetVital(cnt).AdjustedBaseValue;
+		}
+	}
+
 }
