@@ -13,7 +13,7 @@ public class Mob : BaseCharacter {
 
 	// Update is called once per frame
 	void Update () {
-		
+
 	}
 
 	public void DisplayHealth(){

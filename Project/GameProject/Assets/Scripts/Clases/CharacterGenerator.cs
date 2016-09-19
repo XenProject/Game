@@ -86,7 +86,7 @@ public class CharacterGenerator : MonoBehaviour {
 															statStartingPos + (cnt * BUTTON_HEIGHT), 													 //y
 															BUTTON_WIDTH, 																										 //width
 															BUTTON_HEIGHT																											 //height
-										), "+"/*, myStyle*/)){
+										), "", myStyle)){
 				if(pointsLeft > 0){
 					_toon.GetPrimaryAttribute(cnt).BaseValue++;
 					pointsLeft--;

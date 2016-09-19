@@ -93,11 +93,11 @@ public class BaseCharacter : MonoBehaviour {
 
 	private void SetupSkillModifiers(){
 		//Debug.Log("Skill");
-		GetSkill((int)SkillName.Melee).AddModifier(new ModifyingAttribute(GetPrimaryAttribute((int)AttributeName.Vitality), 0.33f));
+		GetSkill((int)SkillName.Melee).AddModifier(new ModifyingAttribute(GetPrimaryAttribute((int)AttributeName.Vitality), 1.0f));
 		//Ranged
-		GetSkill((int)SkillName.Ranged).AddModifier(new ModifyingAttribute(GetPrimaryAttribute((int)AttributeName.Agility), 0.5f));
+		GetSkill((int)SkillName.Ranged).AddModifier(new ModifyingAttribute(GetPrimaryAttribute((int)AttributeName.Agility), 0.7f));
 		//Magic
-		GetSkill((int)SkillName.Magic).AddModifier(new ModifyingAttribute(GetPrimaryAttribute((int)AttributeName.Intelligence), 0.7f));
+		GetSkill((int)SkillName.Magic).AddModifier(new ModifyingAttribute(GetPrimaryAttribute((int)AttributeName.Intelligence), 2.0f));
 	}
 
 	public void StatUpdate(){

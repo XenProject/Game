@@ -161,6 +161,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCharacter: {fileID: 190632, guid: 8e5b1ca7391b216498bf6a61562929bb, type: 2}
+  gameSettings: {fileID: 132126, guid: 1ffa52cec4a5c664ea42edacb32c7a21, type: 2}
 --- !u!4 &220853191
 Transform:
   m_ObjectHideFlags: 0

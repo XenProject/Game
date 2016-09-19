@@ -1,14 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerHealth : MonoBehaviour {
-	public int maxHealth = 200;
-	public int curHealth = 200;
+public class PlayerHealth : PlayerCharacter {
+	public int maxHealth;
+	public int curHealth;
 
 	//public float healthBarLength;
 	// Use this for initialization
 	void Start () {
 		//healthBarLength = Screen.width / 4;
+		maxHealth = GetVital((int)VitalName.Health).CurValue;
+		curHealth = maxHealth;
 	}
 
 	// Update is called once per frame

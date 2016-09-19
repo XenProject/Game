@@ -15,10 +15,6 @@ public class EnemyHealth : MonoBehaviour {
 		AddjustCurrHealth(0);
 	}
 
-	/*void OnGUI(){
-		GUI.Box(new Rect(10, 40, healthBarLength, 20), curHealth + "/" + maxHealth);
-	}*/
-
 	public void AddjustCurrHealth(int adj){
 		curHealth += adj;
 
@@ -29,7 +25,6 @@ public class EnemyHealth : MonoBehaviour {
 		if(curHealth > maxHealth){
 			curHealth = maxHealth;
 		}
-		//healthBarLength = (Screen.width / 4) * (curHealth / (float)maxHealth);
 	}
 
 }

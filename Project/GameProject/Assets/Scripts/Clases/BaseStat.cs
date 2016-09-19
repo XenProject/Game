@@ -1,4 +1,6 @@
 public class BaseStat{
+	public const int STARTING_EXP_COST = 100;
+
 	private int _baseValue;
 	private int _buffValue;
 	private int _expToLevel;
@@ -8,7 +10,7 @@ public class BaseStat{
 		_baseValue = 0;
 		_buffValue = 0;
 		_levelModifier = 1.1f;
-		_expToLevel = 100;
+		_expToLevel = STARTING_EXP_COST;
 	}
 #region Setters and Getters
 	public int BaseValue{
