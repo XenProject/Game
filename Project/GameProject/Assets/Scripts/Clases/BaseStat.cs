@@ -6,11 +6,14 @@ public class BaseStat{
 	private int _expToLevel;
 	private float _levelModifier;
 
+	private string _name;
+
 	public BaseStat(){
 		_baseValue = 0;
 		_buffValue = 0;
 		_levelModifier = 1.1f;
 		_expToLevel = STARTING_EXP_COST;
+		_name = "";
 	}
 #region Setters and Getters
 	public int BaseValue{
@@ -28,6 +31,11 @@ public class BaseStat{
 	public float LevelModifier{
 		get{ return _levelModifier; }
 		set{ _levelModifier = value; }
+	}
+
+	public string Name{
+		get{ return _name; }
+		set{ _name = value; }
 	}
 #endregion
 	private int CalculateExpToLevel(){

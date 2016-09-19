@@ -35,36 +35,35 @@ public class TargetMob : MonoBehaviour {
 
 
 	private void TargetEnemy(){
-		if(selectedTarget == null){
-			SortTargetsByDistance();
-			selectedTarget = targets[0];
-			SelectTarget();
-		}else{
-			int index = targets.IndexOf(selectedTarget);
-
-			if(index < targets.Count - 1){
-				index++;
+		if(targets.Count == 0)
+			AddAllEnemies();
+		if(targets.Count>0){
+			if(selectedTarget == null){
+				SortTargetsByDistance();
+				selectedTarget = targets[0];
+				SelectTarget();
 			}else{
-				index = 0;
+				int index = targets.IndexOf(selectedTarget);
+
+				if(index < targets.Count - 1){
+					index++;
+				}else{
+					index = 0;
+				}
+				DeselectTarget();
+				selectedTarget = targets[index];
+				SelectTarget();
 			}
-			DeselectTarget();
-			selectedTarget = targets[index];
-			SelectTarget();
 		}
 	}
 
 	private void SortTargetsByDistance(){
-		if(targets.Count>0){
-			Transform playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-			targets.Sort(
-				delegate(Transform t1, Transform t2){
-					return Vector3.Distance(t1.position, playerTransform.position).CompareTo(Vector3.Distance(t2.position, playerTransform.position));
-					}
-				);
-		}else{
-			AddAllEnemies();
-			SortTargetsByDistance();
-		}
+		Transform playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+		targets.Sort(
+			delegate(Transform t1, Transform t2){
+				return Vector3.Distance(t1.position, playerTransform.position).CompareTo(Vector3.Distance(t2.position, playerTransform.position));
+				}
+			);
 	}
 
 	private void SelectTarget(){
