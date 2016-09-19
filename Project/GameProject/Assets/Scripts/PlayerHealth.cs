@@ -5,12 +5,24 @@ public class PlayerHealth : PlayerCharacter {
 	public int maxHealth;
 	public int curHealth;
 
+	public int maxMana;
+	public int curMana;
+	
+	public int maxEnergy;
+	public int curEnergy;
+
 	//public float healthBarLength;
 	// Use this for initialization
 	void Start () {
 		//healthBarLength = Screen.width / 4;
 		maxHealth = GetVital((int)VitalName.Health).CurValue;
 		curHealth = maxHealth;
+
+		maxMana = GetVital((int)VitalName.Mana).CurValue;
+		curMana = maxMana;
+
+		maxEnergy = GetVital((int)VitalName.Energy).CurValue;
+		curEnergy = maxEnergy;
 	}
 
 	// Update is called once per frame

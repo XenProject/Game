@@ -253,6 +253,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isPlayerHealthBar: 1
   _healthBar: {fileID: 11456434}
+  _manaBar: {fileID: 11455008}
+  _energyBar: {fileID: 11477512}
 --- !u!114 &11477512
 MonoBehaviour:
   m_ObjectHideFlags: 1
