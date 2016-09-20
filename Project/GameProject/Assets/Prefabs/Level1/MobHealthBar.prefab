@@ -125,6 +125,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isPlayerHealthBar: 0
   _healthBar: {fileID: 11416776}
+  _manaBar: {fileID: 0}
+  _energyBar: {fileID: 0}
 --- !u!114 &11494130
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -202,9 +204,9 @@ RectTransform:
   - {fileID: 22470654}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 425, y: 220}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -149, y: -40}
   m_SizeDelta: {x: 250, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22470654
