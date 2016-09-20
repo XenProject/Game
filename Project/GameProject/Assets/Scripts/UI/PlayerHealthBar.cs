@@ -20,9 +20,10 @@ public class PlayerHealthBar : MonoBehaviour {
 	void Start () {
 		Text[] texts = gameObject.GetComponentsInChildren<Text>();
 		_hpText = texts[0];
-		_manaText = texts[1];
-		_energyText = texts[2];
-
+		if(_isPlayerHealthBar){			
+			_manaText = texts[1];
+			_energyText = texts[2];
+		}
 		OnEnable();
 	}
 

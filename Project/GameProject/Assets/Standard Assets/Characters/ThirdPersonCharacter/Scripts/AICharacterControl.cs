@@ -11,6 +11,8 @@ namespace UnityStandardAssets.Characters.ThirdPerson
         public ThirdPersonCharacter character { get; private set; } // the character we are controlling
         public Transform target;                                    // target to aim for
 
+        private GameObject player;
+
 
         private void Start()
         {
@@ -25,6 +27,11 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
         private void Update()
         {
+            if(player == null)
+              player = GameObject.FindGameObjectWithTag("Player");
+
+            SetTarget(player.transform);
+
             if (target != null)
                 agent.SetDestination(target.position);
 
