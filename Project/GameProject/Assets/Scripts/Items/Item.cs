@@ -6,6 +6,7 @@ public class Item{
 	private RarityTypes _rarity;
 	private int _curDur;
 	private int _maxDur;
+	private Texture2D _icon;
 
 	public Item(){
 		_name = "Need Name";
@@ -33,7 +34,7 @@ public class Item{
 		set{ _value = value; }
 	}
 
-	public RarityTypes Rare{
+	public RarityTypes Rarity{
 		get{ return _rarity; }
 		set{ _rarity = value; }
 	}
@@ -46,6 +47,16 @@ public class Item{
 	public int CurDurability{
 		get{ return _curDur; }
 		set{ _curDur = value; }
+	}
+
+	public Texture2D Icon{
+		get{ return _icon; }
+		set{ _icon = value; }
+	}
+	public virtual string ToolTip(){
+		return Name + "\n" +
+						"Value " + Value + "\n" +
+						"Durability " + CurDurability + "/" + MaxDurability + "\n";
 	}
 }
 
