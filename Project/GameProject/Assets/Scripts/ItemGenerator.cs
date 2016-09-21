@@ -39,6 +39,7 @@ public static class ItemGenerator{
 		meleeWeapon.TypeOfDamage = DamageType.Physical;
 
 		meleeWeapon.Icon = Resources.Load(MELEE_WEAPON_PATH + meleeWeapon.Name) as Texture2D;
+		meleeWeapon.IconSprite = Resources.Load<Sprite>(MELEE_WEAPON_PATH + meleeWeapon.Name);
 
 		return meleeWeapon;
 	}

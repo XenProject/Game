@@ -20,7 +20,8 @@ public class myGUI : MonoBehaviour {
 	private Vector2 _lootWindowSlider = Vector2.zero;
 	public static Chest chest;
 
-	private string _toolTip = "";
+	public string _toolTip = "";
+	public string _tmp = "";
 
 	/**************************************/
 	/*               Inventory            */
@@ -44,7 +45,6 @@ public class myGUI : MonoBehaviour {
 	private Rect _characterWindowRect = new Rect(Screen.width - 180, Screen.height/4, 170, 265);
 	private int _characterPanel = 0;
 	private string[] _characterPanelNames = new string[] {"Equipment", "Attributes", "Skills"};
-
 
 	// Use this for initialization
 	void Start () {
@@ -80,6 +80,7 @@ public class myGUI : MonoBehaviour {
 		if(_displayLootWindow)
 			_lootWindowRect = GUI.Window(LOOT_WINDOW_ID, new Rect(_offset, Screen.height - (_offset*6 + lootWindowHeight), Screen.width/4 - (_offset*2), lootWindowHeight), LootWindow, "Chest", "Loot Window");
 		DisplayToolTip();
+		//Debug.Log("ToolTip:\n" + GUI.tooltip);
 	}
 
 	private void LootWindow(int id){
@@ -91,10 +92,10 @@ public class myGUI : MonoBehaviour {
 		if(chest==null)
 			return;
 
-			if(chest.loot.Count == 0){
-				ClearWindow();
-				return;
-			}
+		if(chest.loot.Count == 0){
+			ClearWindow();
+			return;
+		}
 
 		_lootWindowSlider = GUI.BeginScrollView(new Rect(_offset * 0.5f, 15, _lootWindowRect.width - 10, 70), _lootWindowSlider, new Rect(0, 0, chest.loot.Count * buttonWidth + _offset, buttonHeight + _offset) );
 
@@ -102,12 +103,13 @@ public class myGUI : MonoBehaviour {
 			if(GUI.Button(new Rect( 5 + buttonWidth * cnt, _offset, buttonWidth, buttonHeight), new GUIContent(chest.loot[cnt].Icon, chest.loot[cnt].ToolTip() ), "Inventory Slot Common" )){
 				Debug.Log(chest.loot[cnt].ToolTip());
 				PlayerCharacter.Inventory.Add(chest.loot[cnt]);
+				gameObject.GetComponent<NewGUI>().AddItem();
 				chest.loot.RemoveAt(cnt);
 			}
 		}
 
 		GUI.EndScrollView();
-
+		//Debug.Log("Loot: " + GUI.tooltip);
 		SetToolTip();
 	}
 
@@ -168,6 +170,7 @@ public class myGUI : MonoBehaviour {
 			}
 
 		}
+		//Debug.Log("Invent:" + GUI.tooltip);
 		SetToolTip();
 		GUI.DragWindow();
 	}
@@ -180,20 +183,18 @@ public class myGUI : MonoBehaviour {
 		if(Event.current.type == EventType.Repaint && GUI.tooltip != _toolTip){
 			if(_toolTip != ""){
 				Debug.Log("Mouse Out");
-				_toolTip = "";
 			}
 			if(GUI.tooltip != ""){
 				Debug.Log("Mouse On");
-				_toolTip = GUI.tooltip;
 			}
+
+			_toolTip = GUI.tooltip;
 		}
 	}
 
 	private void DisplayToolTip(){
-		if(_toolTip != ""){
+		if(_toolTip != "")
 			GUI.Box(new Rect(Screen.width /2 - 100, 10, 200, 100), _toolTip);
-			Debug.Log("ToolTip:\n" + _toolTip);
-		}
 	}
 
 	//Character Window

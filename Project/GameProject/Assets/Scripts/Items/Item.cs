@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class Item{
 	private string _name;
@@ -7,6 +8,7 @@ public class Item{
 	private int _curDur;
 	private int _maxDur;
 	private Texture2D _icon;
+	private Sprite _iconSprite;
 
 	public Item(){
 		_name = "Need Name";
@@ -53,6 +55,12 @@ public class Item{
 		get{ return _icon; }
 		set{ _icon = value; }
 	}
+
+	public Sprite IconSprite{
+		get{ return _iconSprite; }
+		set{ _iconSprite = value; }
+	}
+
 	public virtual string ToolTip(){
 		return Name + "\n" +
 						"Value " + Value + "\n" +
