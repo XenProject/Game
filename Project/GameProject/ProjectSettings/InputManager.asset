@@ -150,10 +150,10 @@ InputManager:
     axis: 2
     joyNum: 0
   - serializedVersion: 3
-    m_Name: Horizontal
+    m_Name: Toggle Character Window
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: 
+    negativeButton: c
     positiveButton: 
     altNegativeButton: 
     altPositiveButton: 
@@ -162,7 +162,7 @@ InputManager:
     sensitivity: 1
     snap: 0
     invert: 0
-    type: 2
+    type: 0
     axis: 0
     joyNum: 0
   - serializedVersion: 3

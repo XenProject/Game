@@ -30,7 +30,20 @@ public class myGUI : MonoBehaviour {
 	private Rect _inventoryWindowRect = new Rect(10, Screen.height/4, 170, 265);
 	private int _inventoryRows = 6;
 	private int _inventoryCols = 4;
+
+	private float _doubleClickTimer = 0;
+	private const float DOUBLE_CLICK_TIMER_THRESHHOLD = .3f;
+	private Item _selectedItem = null;
 	//private Vector2 _inventoryWindowSlider = Vector2.zero;
+
+	/**************************************/
+	/*               Character Window            */
+	/*************************************/
+	public bool _displayCharacterWindow = false;
+	private const int CHARACTER_WINDOW_ID = 2;
+	private Rect _characterWindowRect = new Rect(Screen.width - 180, Screen.height/4, 170, 265);
+	private int _characterPanel = 0;
+	private string[] _characterPanelNames = new string[] {"Equipment", "Attributes", "Skills"};
 
 
 	// Use this for initialization
@@ -43,6 +56,7 @@ public class myGUI : MonoBehaviour {
 		Messenger.AddListener("DisplayLoot", DisplayLoot);
 		Messenger.AddListener("CloseChest", ClearWindow);
 		Messenger.AddListener("ToggleInventory", ToggleInventoryWindow);
+		Messenger.AddListener("ToggleCharacterWindow", ToggleCharacterWindow);
 	}
 
 	private void OnDisable(){
@@ -50,6 +64,7 @@ public class myGUI : MonoBehaviour {
 		Messenger.RemoveListener("DisplayLoot", DisplayLoot);
 		Messenger.RemoveListener("CloseChest", ClearWindow);
 		Messenger.RemoveListener("ToggleInventory", ToggleInventoryWindow);
+		Messenger.RemoveListener("ToggleCharacterWindow", ToggleCharacterWindow);
 	}
 	// Update is called once per frame
 	void Update () {
@@ -58,6 +73,8 @@ public class myGUI : MonoBehaviour {
 
 	void OnGUI(){
 		GUI.skin = mySkin;
+		if(_displayCharacterWindow)
+			_characterWindowRect = GUI.Window(CHARACTER_WINDOW_ID, _characterWindowRect, CharacterWindow, "Char", "Character Window");
 		if(_displayInventoryWindow)
 			_inventoryWindowRect = GUI.Window(INVENTORY_WINDOW_ID, _inventoryWindowRect, InventoryWindow, "Inventory", "Inventory Window");
 		if(_displayLootWindow)
@@ -119,7 +136,30 @@ public class myGUI : MonoBehaviour {
 		for(int y = 0; y < _inventoryRows; y++){
 			for(int x = 0; x < _inventoryCols; x++){
 				if(cnt < PlayerCharacter.Inventory.Count){
-					GUI.Button(new Rect(5 + (x * buttonWidth), 20 + (y * buttonHeight), buttonWidth, buttonHeight), new GUIContent( PlayerCharacter.Inventory[cnt].Icon, PlayerCharacter.Inventory[cnt].ToolTip() ), "Inventory Slot Common" );
+					if(GUI.Button(new Rect(5 + (x * buttonWidth), 20 + (y * buttonHeight), buttonWidth, buttonHeight), new GUIContent( PlayerCharacter.Inventory[cnt].Icon, PlayerCharacter.Inventory[cnt].ToolTip() ), "Inventory Slot Common" )){
+						if(_doubleClickTimer != 0 && _selectedItem != null ){
+							if(Time.time -  _doubleClickTimer < DOUBLE_CLICK_TIMER_THRESHHOLD){
+								Debug.Log("Equip Weapon: " + PlayerCharacter.Inventory[cnt].Name);
+
+								if(PlayerCharacter.EquipedWeapon == null){
+									PlayerCharacter.EquipedWeapon = _selectedItem;
+									PlayerCharacter.Inventory.RemoveAt(cnt);
+								}else{
+									Item tmp = PlayerCharacter.EquipedWeapon;
+									PlayerCharacter.EquipedWeapon = PlayerCharacter.Inventory[cnt];
+									PlayerCharacter.Inventory[cnt] = tmp;
+								}
+
+								_doubleClickTimer = 0;
+								_selectedItem = null;
+							}else{
+								_doubleClickTimer = 0; /***********************If bug switch 0 to Time.time******************/
+							}
+						}else{
+							_doubleClickTimer = Time.time;
+							_selectedItem = PlayerCharacter.Inventory[cnt];
+						}
+					}
 				}else{
 					GUI.Label(new Rect(5 + (x * buttonWidth), 20 + (y * buttonHeight), buttonWidth, buttonHeight), "", "Inventory Slot Common");
 				}
@@ -148,6 +188,52 @@ public class myGUI : MonoBehaviour {
 	private void DisplayToolTip(){
 		if(_toolTip != "")
 			GUI.Box(new Rect(Screen.width /2 -100, 10, 200, 100), _toolTip);
+	}
+
+	//Character Window
+
+	public void CharacterWindow(int id){
+		_characterPanel = GUI.Toolbar(new Rect(5, 25, _characterWindowRect.width - 10, 50), _characterPanel, _characterPanelNames);
+
+		switch(_characterPanel){
+			case 0:
+				DisplayEquipment();
+				break;
+			case 1:
+				DisplayAttributes();
+				break;
+			case 2:
+				DisplaySkills();
+				break;
+		}
+
+		GUI.DragWindow();
+	}
+
+	public void ToggleCharacterWindow(){
+		_displayCharacterWindow = !_displayCharacterWindow;
+	}
+
+	private void DisplayEquipment(){
+		GUI.skin = mySkin;
+		if(PlayerCharacter.EquipedWeapon == null){
+			GUI.Label(new Rect(5, 80, 40, 40), "", "Inventory Slot Common" );
+		}else{
+			if(GUI.Button(new Rect(5, 80, 40, 40), new GUIContent( PlayerCharacter.EquipedWeapon.Icon, PlayerCharacter.EquipedWeapon.ToolTip() ), "Inventory Slot Common" )){
+				PlayerCharacter.Inventory.Add(PlayerCharacter.EquipedWeapon);
+				PlayerCharacter.EquipedWeapon = null;
+			}
+		}
+
+		SetToolTip();
+	}
+
+	private void DisplayAttributes(){
+
+	}
+
+	private void DisplaySkills(){
+
 	}
 
 }

@@ -13,5 +13,9 @@ public class PlayerInput : MonoBehaviour {
 		if(Input.GetButtonUp("Toggle Inventory") ){
 			Messenger.Broadcast("ToggleInventory");
 		}
+
+		if(Input.GetButtonUp("Toggle Character Window") ){
+			Messenger.Broadcast("ToggleCharacterWindow");
+		}
 	}
 }
