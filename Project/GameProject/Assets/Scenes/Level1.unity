@@ -438,6 +438,7 @@ GameObject:
   - 223: {fileID: 457847326}
   - 114: {fileID: 457847325}
   - 114: {fileID: 457847324}
+  - 114: {fileID: 457847328}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -522,6 +523,25 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &457847328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 457847323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bff87d329d5a61b42b1fa2a7c91a0d60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mySkin: {fileID: 11400000, guid: 9d9af6dc217e9b140ae93257e7d0c296, type: 2}
+  lootWindowHeight: 90
+  buttonWidth: 40
+  buttonHeight: 40
+  closeButtonWidth: 20
+  closeButtonHeight: 20
+  _displayLootWindow: 0
+  _displayInventoryWindow: 0
 --- !u!1001 &513145389
 Prefab:
   m_ObjectHideFlags: 0

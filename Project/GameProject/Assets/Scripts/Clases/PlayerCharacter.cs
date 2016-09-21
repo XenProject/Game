@@ -1,6 +1,13 @@
 using UnityEngine;
+using System.Collections.Generic;
 public class PlayerCharacter : BaseCharacter {
 	private PlayerHealth ph;
+	
+	private static List<Item> _inventory = new List<Item>();
+	public static List<Item> Inventory{
+		get{ return _inventory; }
+	}
+
 	// Update is called once per frame
 	void Start(){
 		ph = (PlayerHealth)gameObject.GetComponent("PlayerHealth");
