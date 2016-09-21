@@ -83,6 +83,7 @@ public class myGUI : MonoBehaviour {
 	}
 
 	private void LootWindow(int id){
+		GUI.skin = mySkin;
 		if(GUI.Button(new Rect(_lootWindowRect.width -20, 0, closeButtonWidth, closeButtonHeight), "x" ) ){
 			ClearWindow();
 		}
@@ -167,8 +168,8 @@ public class myGUI : MonoBehaviour {
 			}
 
 		}
-		GUI.DragWindow();
 		SetToolTip();
+		GUI.DragWindow();
 	}
 
 	public void ToggleInventoryWindow(){
@@ -177,17 +178,22 @@ public class myGUI : MonoBehaviour {
 
 	private void SetToolTip(){
 		if(Event.current.type == EventType.Repaint && GUI.tooltip != _toolTip){
-			if(_toolTip != "")
+			if(_toolTip != ""){
+				Debug.Log("Mouse Out");
 				_toolTip = "";
-
-			if(GUI.tooltip != "")
+			}
+			if(GUI.tooltip != ""){
+				Debug.Log("Mouse On");
 				_toolTip = GUI.tooltip;
+			}
 		}
 	}
 
 	private void DisplayToolTip(){
-		if(_toolTip != "")
-			GUI.Box(new Rect(Screen.width /2 -100, 10, 200, 100), _toolTip);
+		if(_toolTip != ""){
+			GUI.Box(new Rect(Screen.width /2 - 100, 10, 200, 100), _toolTip);
+			Debug.Log("ToolTip:\n" + _toolTip);
+		}
 	}
 
 	//Character Window
