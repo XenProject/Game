@@ -46,9 +46,11 @@ public class myGUI : MonoBehaviour {
 	private int _characterPanel = 0;
 	private string[] _characterPanelNames = new string[] {"Equipment", "Attributes", "Skills"};
 
+	private NewUI _newUI;
+
 	// Use this for initialization
 	void Start () {
-
+		_newUI = gameObject.GetComponent<NewUI>();
 	}
 
 	private void OnEnable(){
@@ -103,7 +105,7 @@ public class myGUI : MonoBehaviour {
 			if(GUI.Button(new Rect( 5 + buttonWidth * cnt, _offset, buttonWidth, buttonHeight), new GUIContent(chest.loot[cnt].Icon, chest.loot[cnt].ToolTip() ), "Inventory Slot Common" )){
 				Debug.Log(chest.loot[cnt].ToolTip());
 				PlayerCharacter.Inventory.Add(chest.loot[cnt]);
-				gameObject.GetComponent<NewGUI>().AddItem();
+				_newUI.AddItem(chest.loot[cnt]);
 				chest.loot.RemoveAt(cnt);
 			}
 		}
