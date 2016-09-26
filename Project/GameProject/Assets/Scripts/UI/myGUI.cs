@@ -50,7 +50,7 @@ public class myGUI : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		_newUI = gameObject.GetComponent<NewUI>();
+		//_newUI = gameObject.GetComponent<NewUI>();
 	}
 
 	private void OnEnable(){
@@ -105,7 +105,7 @@ public class myGUI : MonoBehaviour {
 			if(GUI.Button(new Rect( 5 + buttonWidth * cnt, _offset, buttonWidth, buttonHeight), new GUIContent(chest.loot[cnt].Icon, chest.loot[cnt].ToolTip() ), "Inventory Slot Common" )){
 				Debug.Log(chest.loot[cnt].ToolTip());
 				PlayerCharacter.Inventory.Add(chest.loot[cnt]);
-				_newUI.AddItem(chest.loot[cnt]);
+				//_newUI.AddItem(chest.loot[cnt]);
 				chest.loot.RemoveAt(cnt);
 			}
 		}
