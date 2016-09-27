@@ -20,6 +20,10 @@ public class GameSettings : MonoBehaviour {
 
 		PlayerPrefs.SetString("Player Name", pcClass.Name);
 
+		PlayerPrefs.SetInt("Level", pcClass.Level);
+		PlayerPrefs.SetInt("Current Exp", pcClass.FreeExp);
+
+
 		for(int cnt = 0; cnt < Enum.GetValues(typeof(AttributeName)).Length; cnt++){
 			PlayerPrefs.SetInt(((AttributeName)cnt).ToString() + " - Base Value", pcClass.GetPrimaryAttribute(cnt).BaseValue);
 			PlayerPrefs.SetInt(((AttributeName)cnt).ToString() + "  - Exp To Level", pcClass.GetPrimaryAttribute(cnt).ExpToLevel);
@@ -47,6 +51,9 @@ public class GameSettings : MonoBehaviour {
 		PlayerCharacter pcClass = pc.GetComponent<PlayerCharacter>();
 
 		pcClass.Name = PlayerPrefs.GetString("Player Name", "Name Me");
+
+		pcClass.Level = PlayerPrefs.GetInt("Level", 1);
+		pcClass.FreeExp = PlayerPrefs.GetInt("Current Exp", 50);
 
 		for(int cnt = 0; cnt < Enum.GetValues(typeof(AttributeName)).Length; cnt++){
 			pcClass.GetPrimaryAttribute(cnt).BaseValue = PlayerPrefs.GetInt(((AttributeName)cnt).ToString() + " - Base Value", 0);

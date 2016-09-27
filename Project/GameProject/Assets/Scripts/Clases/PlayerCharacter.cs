@@ -1,7 +1,10 @@
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections.Generic;
 
 public class PlayerCharacter : BaseCharacter {
+	private GameObject levelTitle;
+
 	private static GameObject[] _weaponMesh;
 
 	private PlayerHealth ph;
@@ -34,16 +37,20 @@ public class PlayerCharacter : BaseCharacter {
 	void Start(){
 		ph = (PlayerHealth)gameObject.GetComponent("PlayerHealth");
 
-		Transform weaponMount = transform.Find("EthanSkeleton/EthanHips/EthanSpine/EthanSpine1/EthanSpine2/EthanNeck/EthanRightShoulder/EthanRightArm/EthanRightForeArm/EthanRightHand/EthanRightHandMiddle1");
-		int count = weaponMount.GetChildCount();
-		_weaponMesh = new GameObject[count-1];
+		if(ph!=null){
+			Transform weaponMount = transform.Find("EthanSkeleton/EthanHips/EthanSpine/EthanSpine1/EthanSpine2/EthanNeck/EthanRightShoulder/EthanRightArm/EthanRightForeArm/EthanRightHand/EthanRightHandMiddle1");
+			int count = weaponMount.GetChildCount();
+			_weaponMesh = new GameObject[count-1];
 
-		for(int cnt = 1; cnt < count; cnt++){
-				_weaponMesh[cnt-1] = weaponMount.GetChild(cnt).gameObject;
-				Debug.Log(_weaponMesh[cnt-1]);
+			for(int cnt = 1; cnt < count; cnt++){
+					_weaponMesh[cnt-1] = weaponMount.GetChild(cnt).gameObject;
+					Debug.Log(_weaponMesh[cnt-1]);
+			}
+
+			HideWeaponMeshes();
+
+			levelTitle = GameObject.Find("LevelTitle");
 		}
-
-		HideWeaponMeshes();
 	}
 
 	void Update () {
@@ -51,6 +58,8 @@ public class PlayerCharacter : BaseCharacter {
 			Messenger<int, int>.Broadcast("Player Health Update", ph.curHealth, ph.maxHealth);
 			Messenger<int, int>.Broadcast("Player Mana Update", ph.curMana, ph.maxMana);
 			Messenger<int, int>.Broadcast("Player Energy Update", ph.curEnergy, ph.maxEnergy);
+			levelTitle.GetComponent<Text>().text = gameObject.GetComponent<PlayerCharacter>().Level.ToString();
+
 			Debug.Log("Health - " + ph.maxHealth + ", Mana - " + ph.maxMana + ", Energy - " + ph.curEnergy);
 		}
 	}

@@ -5,7 +5,7 @@ using System;
 public class BaseCharacter : MonoBehaviour {
 	private string _name;
 	private int _level;
-	private uint _freeExp;
+	private int _freeExp;
 
 	private Attribute[] _primaryAttribute;
 	private Vital[] _vital;
@@ -13,8 +13,8 @@ public class BaseCharacter : MonoBehaviour {
 
 	public void Awake(){
 		_name = string.Empty;
-		_level = 0;
-		_freeExp = 0;
+		_level = 1;
+		_freeExp = 50;
 
 		_primaryAttribute = new Attribute[Enum.GetValues(typeof(AttributeName)).Length];
 		_vital = new Vital[Enum.GetValues(typeof(VitalName)).Length];
@@ -35,12 +35,12 @@ public class BaseCharacter : MonoBehaviour {
 		set{ _level = value; }
 	}
 
-	public uint FreeExp{
+	public int FreeExp{
 		get{ return _freeExp; }
 		set{ _freeExp = value; }
 	}
 
-	public void AddExp(uint exp){
+	public void AddExp(int exp){
 		_freeExp += exp;
 
 		CalculateLevel();

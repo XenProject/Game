@@ -161,7 +161,7 @@ public class CharacterGenerator : MonoBehaviour {
 
 			gsScript.SaveCharacterData();
 
-			SceneManager.LoadScene(1);
+			SceneManager.LoadScene("Level1");
 		}
 	}
 
