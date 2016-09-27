@@ -5,6 +5,7 @@ using System;						//enum
 public class GameSettings : MonoBehaviour {
 
 	public const string PLAYER_SPAWN_POINT = "Player Spawn Point";
+	public const string MELEE_WEAPON_MESH_PATH = "Mesh/Weapon/Melee";
 
 	void Awake(){
 		DontDestroyOnLoad(this);

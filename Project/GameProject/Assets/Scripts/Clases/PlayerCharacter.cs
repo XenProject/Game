@@ -22,6 +22,9 @@ public class PlayerCharacter : BaseCharacter {
 
 				HideWeaponMeshes();
 
+				if(_equipedWeapon == null)
+					return;
+
 				switch(_equipedWeapon.Name){
 					case "KatanaTest":
 						_weaponMesh[0].active = true;
