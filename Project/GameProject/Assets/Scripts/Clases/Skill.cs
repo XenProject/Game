@@ -13,8 +13,12 @@
 	}
 }
 public enum SkillName{
-	Melee,
-	Ranged,
+	Crushers,
+	Swords,
+	Daggers,
+	Bows,
 	Magic,
-	Defence,
+	Chainmails,
+	Lethers,
+	Clothes
 }

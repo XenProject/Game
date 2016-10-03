@@ -11,7 +11,7 @@ public class Weapon : BuffItem {
 		_maxDamage = 0;
 		_dmgVar = 0;
 		_maxRange = 0;
-		_dmgType = DamageType.Physical;
+		_dmgType = DamageType.Sword;
 	}
 
 	public Weapon(int mDmg, float dmgV, float mRange, DamageType dt){
@@ -51,7 +51,10 @@ public class Weapon : BuffItem {
 }
 
 public enum DamageType{
-	Physical,
+	Crush,
+	Sword,
+	Dagger,
+	Bow,
 	Fire,
 	Water,
 	Earth,

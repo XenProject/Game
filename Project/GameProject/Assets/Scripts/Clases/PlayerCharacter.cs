@@ -61,6 +61,8 @@ public class PlayerCharacter : BaseCharacter {
 			Messenger<int, int>.Broadcast("Player Health Update", ph.curHealth, ph.maxHealth);
 			Messenger<int, int>.Broadcast("Player Mana Update", ph.curMana, ph.maxMana);
 			Messenger<int, int>.Broadcast("Player Energy Update", ph.curEnergy, ph.maxEnergy);
+			Messenger<int, int>.Broadcast("Player Exp Update", ph.curExp, ph.maxExp);
+
 			levelTitle.GetComponent<Text>().text = gameObject.GetComponent<PlayerCharacter>().Level.ToString();
 
 			Debug.Log("Health - " + ph.maxHealth + ", Mana - " + ph.maxMana + ", Energy - " + ph.curEnergy);

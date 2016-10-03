@@ -14,7 +14,7 @@ public class BaseCharacter : MonoBehaviour {
 	public void Awake(){
 		_name = string.Empty;
 		_level = 1;
-		_freeExp = 50;
+		_freeExp = 0;
 
 		_primaryAttribute = new Attribute[Enum.GetValues(typeof(AttributeName)).Length];
 		_vital = new Vital[Enum.GetValues(typeof(VitalName)).Length];
@@ -40,6 +40,10 @@ public class BaseCharacter : MonoBehaviour {
 		set{ _freeExp = value; }
 	}
 
+	public int MaxExp{
+		get{ return _level*50; }
+	}
+
 	public void AddExp(int exp){
 		_freeExp += exp;
 
@@ -47,7 +51,10 @@ public class BaseCharacter : MonoBehaviour {
 	}
 
 	public void CalculateLevel(){
-
+		if(_freeExp>=MaxExp ){
+			_level++;
+			_freeExp = 0;
+		}
 	}
 
 	private void SetupPrimaryAttributes(){
@@ -84,7 +91,7 @@ public class BaseCharacter : MonoBehaviour {
 	private void SetupVitalModifiers(){
 		//Heatlh
 		//Debug.Log("Vitalmod");
-		GetVital((int)VitalName.Health).AddModifier(new ModifyingAttribute(GetPrimaryAttribute((int)AttributeName.Vitality), 25.0f));
+		GetVital((int)VitalName.Health).AddModifier(new ModifyingAttribute(GetPrimaryAttribute((int)AttributeName.Strength), 25.0f));
 		//Mana
 		GetVital((int)VitalName.Mana).AddModifier(new ModifyingAttribute(GetPrimaryAttribute((int)AttributeName.Intelligence), 20.0f));
 		//Energy
@@ -93,11 +100,17 @@ public class BaseCharacter : MonoBehaviour {
 
 	private void SetupSkillModifiers(){
 		//Debug.Log("Skill");
-		GetSkill((int)SkillName.Melee).AddModifier(new ModifyingAttribute(GetPrimaryAttribute((int)AttributeName.Vitality), 1.0f));
-		//Ranged
-		GetSkill((int)SkillName.Ranged).AddModifier(new ModifyingAttribute(GetPrimaryAttribute((int)AttributeName.Agility), 0.7f));
-		//Magic
+		GetSkill((int)SkillName.Crushers).AddModifier(new ModifyingAttribute(GetPrimaryAttribute((int)AttributeName.Strength), 1.0f));
+		GetSkill((int)SkillName.Swords).AddModifier(new ModifyingAttribute(GetPrimaryAttribute((int)AttributeName.Strength), 1.0f));
+
+		GetSkill((int)SkillName.Daggers).AddModifier(new ModifyingAttribute(GetPrimaryAttribute((int)AttributeName.Agility), 1.0f));
+		GetSkill((int)SkillName.Bows).AddModifier(new ModifyingAttribute(GetPrimaryAttribute((int)AttributeName.Agility), 1.0f));
+
 		GetSkill((int)SkillName.Magic).AddModifier(new ModifyingAttribute(GetPrimaryAttribute((int)AttributeName.Intelligence), 2.0f));
+
+		GetSkill((int)SkillName.Chainmails).AddModifier(new ModifyingAttribute(GetPrimaryAttribute((int)AttributeName.Strength), 2.0f));
+		GetSkill((int)SkillName.Lethers).AddModifier(new ModifyingAttribute(GetPrimaryAttribute((int)AttributeName.Agility), 2.0f));
+		GetSkill((int)SkillName.Clothes).AddModifier(new ModifyingAttribute(GetPrimaryAttribute((int)AttributeName.Intelligence), 2.0f));
 	}
 
 	public void StatUpdate(){

@@ -7,9 +7,12 @@ public class PlayerHealth : PlayerCharacter {
 
 	public int maxMana;
 	public int curMana;
-	
+
 	public int maxEnergy;
 	public int curEnergy;
+
+	public int maxExp;
+	public int curExp;
 
 	//public float healthBarLength;
 	// Use this for initialization
@@ -23,11 +26,19 @@ public class PlayerHealth : PlayerCharacter {
 
 		maxEnergy = GetVital((int)VitalName.Energy).CurValue;
 		curEnergy = maxEnergy;
+
+		maxExp = MaxExp;
+		curExp = FreeExp;
 	}
 
 	// Update is called once per frame
 	void Update () {
 		AddjustCurrHealth(0);
+		if(Input.GetKeyDown(KeyCode.F)){
+			AddExp(2);
+			maxExp = MaxExp;
+			curExp = FreeExp;
+		}
 	}
 
 	/*void OnGUI(){

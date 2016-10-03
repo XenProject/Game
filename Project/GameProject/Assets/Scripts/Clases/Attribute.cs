@@ -8,10 +8,7 @@
 }
 
 public enum AttributeName{
-	Vitality,
+	Strength,
 	Agility,
-	Intelligence,
-	Might,
-	Karma,
-	Speed
+	Intelligence
 }
