@@ -19,6 +19,6 @@ public enum SkillName{
 	Bows,
 	Magic,
 	Chainmails,
-	Lethers,
+	Leathers,
 	Clothes
 }

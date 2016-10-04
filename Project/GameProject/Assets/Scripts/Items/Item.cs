@@ -7,23 +7,27 @@ public class Item{
 	private RarityTypes _rarity;
 	private int _curDur;
 	private int _maxDur;
+	private bool _stackable;
+
 	private Texture2D _icon;
 	private Sprite _iconSprite;
 
 	public Item(){
-		_name = "Need Name";
+		_name = "Error";
 		_value = 0;
 		_rarity = RarityTypes.Common;
 		_maxDur = 50;
 		_curDur = _maxDur;
+		_stackable = false;
 	}
 
-	public Item(string name, int value, RarityTypes rare, int maxDur, int curDur){
+	public Item(string name, int value, RarityTypes rare, int maxDur, int curDur, bool stackable){
 		_name = name;
 		_value = value;
 		_rarity = rare;
 		_maxDur = maxDur;
 		_curDur = curDur;
+		_stackable = stackable;
 	}
 
 	public string Name{
@@ -49,6 +53,11 @@ public class Item{
 	public int CurDurability{
 		get{ return _curDur; }
 		set{ _curDur = value; }
+	}
+
+	public bool Stackable{
+		get{ return _stackable; }
+		set{ _stackable = value; }
 	}
 
 	public Texture2D Icon{

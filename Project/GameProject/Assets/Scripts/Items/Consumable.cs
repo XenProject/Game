@@ -6,7 +6,7 @@ public class Consumable : BuffItem {
 	private float _buffTime;
 
 	public Consumable(){
-		Reset();
+		//Reset();
 	}
 
 	public Consumable(Vital[] v, int[] a, float b){

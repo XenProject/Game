@@ -26,7 +26,7 @@ public class myGUI : MonoBehaviour {
 	/**************************************/
 	/*               Inventory            */
 	/*************************************/
-	public bool _displayInventoryWindow = false;
+	/*public bool _displayInventoryWindow = false;
 	private const int INVENTORY_WINDOW_ID = 1;
 	private Rect _inventoryWindowRect = new Rect(10, Screen.height/4, 170, 265);
 	private int _inventoryRows = 6;
@@ -35,38 +35,38 @@ public class myGUI : MonoBehaviour {
 	private float _doubleClickTimer = 0;
 	private const float DOUBLE_CLICK_TIMER_THRESHHOLD = .3f;
 	private Item _selectedItem = null;
-	//private Vector2 _inventoryWindowSlider = Vector2.zero;
+	//private Vector2 _inventoryWindowSlider = Vector2.zero;*/
 
 	/**************************************/
 	/*               Character Window            */
 	/*************************************/
-	public bool _displayCharacterWindow = false;
+	/*public bool _displayCharacterWindow = false;
 	private const int CHARACTER_WINDOW_ID = 2;
 	private Rect _characterWindowRect = new Rect(Screen.width - 180, Screen.height/4, 170, 265);
 	private int _characterPanel = 0;
-	private string[] _characterPanelNames = new string[] {"Equipment", "Attributes", "Skills"};
+	private string[] _characterPanelNames = new string[] {"Equipment", "Attributes", "Skills"};*/
 
-	private NewUI _newUI;
+	private InventoryUI inv;
 
 	// Use this for initialization
 	void Start () {
-		//_newUI = gameObject.GetComponent<NewUI>();
+		inv = gameObject.GetComponent<InventoryUI>();
 	}
 
 	private void OnEnable(){
 		//Messenger<int>.AddListener("PopulateChest", PopulateChest);
 		Messenger.AddListener("DisplayLoot", DisplayLoot);
 		Messenger.AddListener("CloseChest", ClearWindow);
-		Messenger.AddListener("ToggleInventory", ToggleInventoryWindow);
-		Messenger.AddListener("ToggleCharacterWindow", ToggleCharacterWindow);
+		//Messenger.AddListener("ToggleInventory", ToggleInventoryWindow);
+		//Messenger.AddListener("ToggleCharacterWindow", ToggleCharacterWindow);
 	}
 
 	private void OnDisable(){
 		//Messenger<int>.RemoveListener("PopulateChest", PopulateChest);
 		Messenger.RemoveListener("DisplayLoot", DisplayLoot);
 		Messenger.RemoveListener("CloseChest", ClearWindow);
-		Messenger.RemoveListener("ToggleInventory", ToggleInventoryWindow);
-		Messenger.RemoveListener("ToggleCharacterWindow", ToggleCharacterWindow);
+		//Messenger.RemoveListener("ToggleInventory", ToggleInventoryWindow);
+		//Messenger.RemoveListener("ToggleCharacterWindow", ToggleCharacterWindow);
 	}
 	// Update is called once per frame
 	void Update () {
@@ -75,13 +75,13 @@ public class myGUI : MonoBehaviour {
 
 	void OnGUI(){
 		GUI.skin = mySkin;
-		if(_displayCharacterWindow)
-			_characterWindowRect = GUI.Window(CHARACTER_WINDOW_ID, _characterWindowRect, CharacterWindow, "Char", "Character Window");
-		if(_displayInventoryWindow)
-			_inventoryWindowRect = GUI.Window(INVENTORY_WINDOW_ID, _inventoryWindowRect, InventoryWindow, "Inventory", "Inventory Window");
+		//if(_displayCharacterWindow)
+		//	_characterWindowRect = GUI.Window(CHARACTER_WINDOW_ID, _characterWindowRect, CharacterWindow, "Char", "Character Window");
+		//if(_displayInventoryWindow)
+		//	_inventoryWindowRect = GUI.Window(INVENTORY_WINDOW_ID, _inventoryWindowRect, InventoryWindow, "Inventory", "Inventory Window");
 		if(_displayLootWindow)
 			_lootWindowRect = GUI.Window(LOOT_WINDOW_ID, new Rect(_offset, Screen.height - (_offset*6 + lootWindowHeight), Screen.width/4 - (_offset*2), lootWindowHeight), LootWindow, "Chest", "Loot Window");
-		DisplayToolTip();
+		//DisplayToolTip();
 		//Debug.Log("ToolTip:\n" + GUI.tooltip);
 	}
 
@@ -104,15 +104,15 @@ public class myGUI : MonoBehaviour {
 		for(int cnt = 0; cnt < chest.loot.Count; cnt++){
 			if(GUI.Button(new Rect( 5 + buttonWidth * cnt, _offset, buttonWidth, buttonHeight), new GUIContent(chest.loot[cnt].Icon, chest.loot[cnt].ToolTip() ), "Inventory Slot Common" )){
 				Debug.Log(chest.loot[cnt].ToolTip());
-				PlayerCharacter.Inventory.Add(chest.loot[cnt]);
-				//_newUI.AddItem(chest.loot[cnt]);
+				//PlayerCharacter.Inventory.Add(chest.loot[cnt]);
+				inv.AddItem(chest.loot[cnt]);
 				chest.loot.RemoveAt(cnt);
 			}
 		}
 
 		GUI.EndScrollView();
 		//Debug.Log("Loot: " + GUI.tooltip);
-		SetToolTip();
+		//SetToolTip();
 	}
 
 	private void DisplayLoot(){
@@ -135,7 +135,7 @@ public class myGUI : MonoBehaviour {
 
 //Inventory
 
-	private void InventoryWindow(int id){
+	/*private void InventoryWindow(int id){
 		int cnt = 0;
 
 		for(int y = 0; y < _inventoryRows; y++){
@@ -158,7 +158,7 @@ public class myGUI : MonoBehaviour {
 								_doubleClickTimer = 0;
 								_selectedItem = null;
 							}else{
-								_doubleClickTimer = 0; /***********************If bug switch 0 to Time.time******************/
+								_doubleClickTimer = 0; /***********************If bug switch 0 to Time.time******************//*
 							}
 						}else{
 							_doubleClickTimer = Time.time;
@@ -179,9 +179,9 @@ public class myGUI : MonoBehaviour {
 
 	public void ToggleInventoryWindow(){
 		_displayInventoryWindow = !_displayInventoryWindow;
-	}
+	}*/
 
-	private void SetToolTip(){
+	/*private void SetToolTip(){
 		if(Event.current.type == EventType.Repaint && GUI.tooltip != _toolTip){
 			if(_toolTip != ""){
 				Debug.Log("Mouse Out");
@@ -197,11 +197,11 @@ public class myGUI : MonoBehaviour {
 	private void DisplayToolTip(){
 		if(_toolTip != "")
 			GUI.Box(new Rect(Screen.width /2 - 100, 10, 200, 100), _toolTip);
-	}
+	}*/
 
 	//Character Window
 
-	public void CharacterWindow(int id){
+	/*public void CharacterWindow(int id){
 		_characterPanel = GUI.Toolbar(new Rect(5, 25, _characterWindowRect.width - 10, 50), _characterPanel, _characterPanelNames);
 
 		switch(_characterPanel){
@@ -235,7 +235,7 @@ public class myGUI : MonoBehaviour {
 		}
 
 		SetToolTip();
-	}
+	}*/
 
 	private void DisplayAttributes(){
 

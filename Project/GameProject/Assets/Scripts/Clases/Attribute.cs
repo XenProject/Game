@@ -5,6 +5,10 @@
 		LevelModifier = 1.05f;
 	}
 
+	public Attribute(string name){
+		Name = name;
+	}
+
 }
 
 public enum AttributeName{

@@ -109,7 +109,7 @@ public class BaseCharacter : MonoBehaviour {
 		GetSkill((int)SkillName.Magic).AddModifier(new ModifyingAttribute(GetPrimaryAttribute((int)AttributeName.Intelligence), 2.0f));
 
 		GetSkill((int)SkillName.Chainmails).AddModifier(new ModifyingAttribute(GetPrimaryAttribute((int)AttributeName.Strength), 2.0f));
-		GetSkill((int)SkillName.Lethers).AddModifier(new ModifyingAttribute(GetPrimaryAttribute((int)AttributeName.Agility), 2.0f));
+		GetSkill((int)SkillName.Leathers).AddModifier(new ModifyingAttribute(GetPrimaryAttribute((int)AttributeName.Agility), 2.0f));
 		GetSkill((int)SkillName.Clothes).AddModifier(new ModifyingAttribute(GetPrimaryAttribute((int)AttributeName.Intelligence), 2.0f));
 	}
 

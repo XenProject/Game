@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 
 public class PlayerCharacter : BaseCharacter {
+
 	private GameObject levelTitle;
 
 	private static GameObject[] _weaponMesh;
@@ -27,7 +28,7 @@ public class PlayerCharacter : BaseCharacter {
 
 				switch(_equipedWeapon.Name){
 					case "KatanaTest":
-						_weaponMesh[0].active = true;
+						_weaponMesh[0].SetActive(true);
 						break;
 					default:
 						Debug.LogWarning("Unknown Weapon Mesh");
@@ -36,13 +37,20 @@ public class PlayerCharacter : BaseCharacter {
 		}
 	}
 
+	private static Item _equipedChest;
+
+	public static Item EquipedChest{
+		get{ return _equipedChest; }
+		set{ _equipedChest = value;	}
+	}
+
 	// Update is called once per frame
 	void Start(){
 		ph = (PlayerHealth)gameObject.GetComponent("PlayerHealth");
 
 		if(ph!=null){
 			Transform weaponMount = transform.Find("EthanSkeleton/EthanHips/EthanSpine/EthanSpine1/EthanSpine2/EthanNeck/EthanRightShoulder/EthanRightArm/EthanRightForeArm/EthanRightHand/EthanRightHandMiddle1");
-			int count = weaponMount.GetChildCount();
+			int count = weaponMount.childCount;
 			_weaponMesh = new GameObject[count-1];
 
 			for(int cnt = 1; cnt < count; cnt++){
@@ -71,7 +79,7 @@ public class PlayerCharacter : BaseCharacter {
 
 	private static void HideWeaponMeshes(){
 		for(int cnt = 0; cnt < _weaponMesh.Length; cnt++){
-			_weaponMesh[cnt].active = false;
+			_weaponMesh[cnt].SetActive(false);
 		}
 	}
 }
