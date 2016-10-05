@@ -80,6 +80,14 @@ public class BaseCharacter : MonoBehaviour {
 		return _primaryAttribute[index];
 	}
 
+	public Attribute GetPrimaryAttributeByName(string str){
+		for(int cnt = 0; cnt < _primaryAttribute.Length; cnt++){
+			if(_primaryAttribute[cnt].Name == str)
+				return _primaryAttribute[cnt];
+		}
+		return null;
+	}
+
 	public Vital GetVital(int index){
 		return _vital[index];
 	}

@@ -45,8 +45,8 @@ public static class ItemGenerator{
 		meleeWeapon.Icon = Resources.Load(MELEE_WEAPON_PATH + meleeWeapon.Name) as Texture2D;
 		meleeWeapon.IconSprite = Resources.Load<Sprite>(MELEE_WEAPON_PATH + meleeWeapon.Name);
 
-		meleeWeapon.AddBuff(new Attribute("Strength"), Random.Range(0,4));
-		meleeWeapon.AddBuff(new Attribute("Agility"), Random.Range(0,2));
+		meleeWeapon.AddBuff(GameObject.Find("pc").GetComponent<PlayerCharacter>().GetPrimaryAttribute(0), Random.Range(0,4));
+		meleeWeapon.AddBuff(GameObject.Find("pc").GetComponent<PlayerCharacter>().GetPrimaryAttribute(1), Random.Range(0,2));
 
 		return meleeWeapon;
 	}
