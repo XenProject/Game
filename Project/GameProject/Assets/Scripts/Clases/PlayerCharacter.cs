@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 using System.Collections.Generic;
+using System;
 
 public class PlayerCharacter : BaseCharacter {
 
@@ -19,7 +21,18 @@ public class PlayerCharacter : BaseCharacter {
 
 	public static Item EquipedWeapon{
 		get{ return _equipedWeapon; }
-		set{ _equipedWeapon = value;
+		set{
+				if(value == null){
+					foreach( DictionaryEntry de in (_equipedWeapon as BuffItem).GetBuffs() ){
+		          GameObject.Find("pc").GetComponent<PlayerCharacter>().GetPrimaryAttributeByName(de.Key.ToString()).BuffValue = 0;
+		      }
+					for(int cnt = 0; cnt < Enum.GetValues(typeof(VitalName)).Length; cnt++){
+						GameObject.Find("pc").GetComponent<PlayerCharacter>().GetVital(cnt).Update();
+					}
+					GameObject.Find("pc").GetComponent<PlayerHealth>().UpdateVitalBar();
+				}
+
+				_equipedWeapon = value;
 
 				HideWeaponMeshes();
 
@@ -34,6 +47,15 @@ public class PlayerCharacter : BaseCharacter {
 						Debug.LogWarning("Unknown Weapon Mesh");
 						break;
 				}
+
+				foreach( DictionaryEntry de in (_equipedWeapon as BuffItem).GetBuffs() ){
+	          GameObject.Find("pc").GetComponent<PlayerCharacter>().GetPrimaryAttributeByName(de.Key.ToString()).BuffValue = (int)de.Value;
+	      }
+
+				for(int cnt = 0; cnt < Enum.GetValues(typeof(VitalName)).Length; cnt++){
+					GameObject.Find("pc").GetComponent<PlayerCharacter>().GetVital(cnt).Update();
+				}
+				GameObject.Find("pc").GetComponent<PlayerHealth>().UpdateVitalBar();
 		}
 	}
 

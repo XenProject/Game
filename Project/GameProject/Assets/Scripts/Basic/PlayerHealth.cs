@@ -18,13 +18,13 @@ public class PlayerHealth : PlayerCharacter {
 	// Use this for initialization
 	void Start () {
 		//healthBarLength = Screen.width / 4;
-		maxHealth = GetVital((int)VitalName.Health).CurValue;
+		maxHealth = GetVital((int)VitalName.Health).AdjustedBaseValue;
 		curHealth = maxHealth;
 
-		maxMana = GetVital((int)VitalName.Mana).CurValue;
+		maxMana = GetVital((int)VitalName.Mana).AdjustedBaseValue;
 		curMana = maxMana;
 
-		maxEnergy = GetVital((int)VitalName.Energy).CurValue;
+		maxEnergy = GetVital((int)VitalName.Energy).AdjustedBaseValue;
 		curEnergy = maxEnergy;
 
 		maxExp = MaxExp;
@@ -35,7 +35,7 @@ public class PlayerHealth : PlayerCharacter {
 	void Update () {
 		AddjustCurrHealth(0);
 		if(Input.GetKeyDown(KeyCode.F)){
-			AddExp(2);
+			AddExp(5);
 			maxExp = MaxExp;
 			curExp = FreeExp;
 		}
@@ -56,6 +56,12 @@ public class PlayerHealth : PlayerCharacter {
 			curHealth = maxHealth;
 		}
 		//healthBarLength = (Screen.width / 4) * (curHealth / (float)maxHealth);
+	}
+
+	public void UpdateVitalBar(){
+		maxHealth = GetVital((int)VitalName.Health).AdjustedBaseValue;
+		maxMana = GetVital((int)VitalName.Mana).AdjustedBaseValue;
+		maxEnergy = GetVital((int)VitalName.Energy).AdjustedBaseValue;
 	}
 
 }
