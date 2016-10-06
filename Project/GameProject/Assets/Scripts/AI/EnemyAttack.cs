@@ -29,6 +29,8 @@ public class EnemyAttack : MonoBehaviour {
 
 	private void Attack(int dmg){
 		//Обзор
+		if(target == null)
+			target = GameObject.FindGameObjectWithTag("Player");
 		Vector3 dir = (target.transform.position - transform.position).normalized;
 		//Скалярное произведение векторов
 		float direction = Vector3.Dot(dir, transform.forward);

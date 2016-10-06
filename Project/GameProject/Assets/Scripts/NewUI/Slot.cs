@@ -17,7 +17,18 @@ public class Slot : MonoBehaviour, IDropHandler {
 			if(PlayerCharacter.Inventory[Id].Name != "Error"){
 				return;
 			}else{
-				PlayerCharacter.EquipedWeapon = null;
+				switch(droppedItem.item.GetType().ToString()){
+					case "Weapon":
+						PlayerCharacter.EquipedWeapon = null;
+					break;
+					case "Clothing":
+						switch((droppedItem.item as Clothing).Slot){
+							case(ArmorSlot.Chest):
+								PlayerCharacter.EquipedChest = null;
+							break;
+						}
+					break;
+				}
 				PlayerCharacter.Inventory[Id] = droppedItem.item;
 				droppedItem.slot = Id;
 			}

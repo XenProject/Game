@@ -32,8 +32,9 @@ public static class ItemGenerator{
 	private static Weapon CreateMeleeWeapon(){
 		Weapon meleeWeapon = new Weapon();
 
-		string[] weaponNames = new string[1];
+		string[] weaponNames = new string[2];
 		weaponNames[0] = "KatanaTest";
+		weaponNames[1] = "Axe";
 
 		meleeWeapon.Name = weaponNames[Random.Range(0, weaponNames.Length)];
 

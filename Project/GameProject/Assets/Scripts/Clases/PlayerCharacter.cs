@@ -43,6 +43,9 @@ public class PlayerCharacter : BaseCharacter {
 					case "KatanaTest":
 						_weaponMesh[0].SetActive(true);
 						break;
+					case "Axe":
+						_weaponMesh[1].SetActive(true);
+						break;
 					default:
 						Debug.LogWarning("Unknown Weapon Mesh");
 						break;

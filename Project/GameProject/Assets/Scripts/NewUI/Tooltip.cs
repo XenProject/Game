@@ -21,6 +21,12 @@ public class Tooltip : MonoBehaviour {
 	public void Activate(Item item){
 		this.item = item;
 		ConstructDataString();
+
+		if(Input.mousePosition.x < Screen.width/2)
+			tooltip.GetComponent<RectTransform>().pivot = new Vector2(-0.1f,1f);
+		else
+			tooltip.GetComponent<RectTransform>().pivot = new Vector2(1.1f,1f);
+			
 		tooltip.SetActive(true);
 	}
 
