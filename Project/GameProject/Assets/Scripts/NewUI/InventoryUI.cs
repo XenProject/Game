@@ -41,7 +41,6 @@ public class InventoryUI : MonoBehaviour {
 
 		_testItem = ItemGenerator.CreatePotion();
 		AddItem(_testItem);
-		AddItem(ItemGenerator.CreateChest());
 
 
 		_displayCharacterWindow = false;
@@ -71,7 +70,7 @@ public class InventoryUI : MonoBehaviour {
 		}
 
 		if(Input.GetKeyUp(KeyCode.G)){
-			AddItem(_testItem);
+			AddItem(ItemGenerator.CreateChest());
 		}
 		if(_displayCharacterWindow){
 			statsInfo.transform.GetChild(0).GetComponent<Text>().text = "Stats:\n\n";

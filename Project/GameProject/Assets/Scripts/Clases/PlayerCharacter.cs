@@ -22,15 +22,8 @@ public class PlayerCharacter : BaseCharacter {
 	public static Item EquipedWeapon{
 		get{ return _equipedWeapon; }
 		set{
-				if(value == null){
-					foreach( DictionaryEntry de in (_equipedWeapon as BuffItem).GetBuffs() ){
-		          GameObject.Find("pc").GetComponent<PlayerCharacter>().GetPrimaryAttributeByName(de.Key.ToString()).BuffValue = 0;
-		      }
-					for(int cnt = 0; cnt < Enum.GetValues(typeof(VitalName)).Length; cnt++){
-						GameObject.Find("pc").GetComponent<PlayerCharacter>().GetVital(cnt).Update();
-					}
-					GameObject.Find("pc").GetComponent<PlayerHealth>().UpdateVitalBar();
-				}
+				if(value == null)
+					UpdateEquipSlot(_equipedWeapon, false);
 
 				_equipedWeapon = value;
 
@@ -51,14 +44,7 @@ public class PlayerCharacter : BaseCharacter {
 						break;
 				}
 
-				foreach( DictionaryEntry de in (_equipedWeapon as BuffItem).GetBuffs() ){
-	          GameObject.Find("pc").GetComponent<PlayerCharacter>().GetPrimaryAttributeByName(de.Key.ToString()).BuffValue = (int)de.Value;
-	      }
-
-				for(int cnt = 0; cnt < Enum.GetValues(typeof(VitalName)).Length; cnt++){
-					GameObject.Find("pc").GetComponent<PlayerCharacter>().GetVital(cnt).Update();
-				}
-				GameObject.Find("pc").GetComponent<PlayerHealth>().UpdateVitalBar();
+				UpdateEquipSlot(_equipedWeapon, true);
 		}
 	}
 
@@ -66,7 +52,17 @@ public class PlayerCharacter : BaseCharacter {
 
 	public static Item EquipedChest{
 		get{ return _equipedChest; }
-		set{ _equipedChest = value;	}
+		set{
+				if(value == null)
+					UpdateEquipSlot(_equipedChest, false);
+
+				_equipedChest = value;
+
+				if(_equipedChest == null)
+					return;
+
+				UpdateEquipSlot(_equipedChest, true);
+		}
 	}
 
 	// Update is called once per frame
@@ -80,7 +76,7 @@ public class PlayerCharacter : BaseCharacter {
 
 			for(int cnt = 1; cnt < count; cnt++){
 					_weaponMesh[cnt-1] = weaponMount.GetChild(cnt).gameObject;
-					Debug.Log(_weaponMesh[cnt-1]);
+					//Debug.Log(_weaponMesh[cnt-1]);
 			}
 
 			HideWeaponMeshes();
@@ -107,4 +103,18 @@ public class PlayerCharacter : BaseCharacter {
 			_weaponMesh[cnt].SetActive(false);
 		}
 	}
+
+	private static void UpdateEquipSlot(Item item, bool equip){
+		if(equip){
+			foreach( DictionaryEntry de in (item as BuffItem).GetBuffs() )
+				GameObject.Find("pc").GetComponent<PlayerCharacter>().GetPrimaryAttributeByName(de.Key.ToString()).BuffValue += (int)de.Value;
+		}else{
+			foreach( DictionaryEntry de in (item as BuffItem).GetBuffs() )
+				GameObject.Find("pc").GetComponent<PlayerCharacter>().GetPrimaryAttributeByName(de.Key.ToString()).BuffValue -= (int)de.Value;
+		}
+		for(int cnt = 0; cnt < Enum.GetValues(typeof(VitalName)).Length; cnt++)
+			GameObject.Find("pc").GetComponent<PlayerCharacter>().GetVital(cnt).Update();
+		GameObject.Find("pc").GetComponent<PlayerHealth>().UpdateVitalBar();
+	}
+
 }

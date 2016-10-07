@@ -90,6 +90,9 @@ public static class ItemGenerator{
 		chest.Icon = Resources.Load(CHEST_PATH + chest.Name) as Texture2D;
 		chest.IconSprite = Resources.Load<Sprite>(CHEST_PATH + chest.Name);
 
+		chest.AddBuff(GameObject.Find("pc").GetComponent<PlayerCharacter>().GetPrimaryAttribute(0), Random.Range(0,4));
+		chest.AddBuff(GameObject.Find("pc").GetComponent<PlayerCharacter>().GetPrimaryAttribute(1), Random.Range(0,2));
+
 		return chest;
 	}
 

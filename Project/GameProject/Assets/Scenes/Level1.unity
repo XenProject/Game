@@ -368,7 +368,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22456494, guid: 337fa1f2f4b7a4b448bfa41d3b93a2c7, type: 2}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: 22441862, guid: 337fa1f2f4b7a4b448bfa41d3b93a2c7, type: 2}
       propertyPath: m_AnchorMin.y
@@ -393,6 +393,10 @@ Prefab:
     - target: {fileID: 22441862, guid: 337fa1f2f4b7a4b448bfa41d3b93a2c7, type: 2}
       propertyPath: m_SizeDelta.y
       value: 251.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11402816, guid: 337fa1f2f4b7a4b448bfa41d3b93a2c7, type: 2}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 337fa1f2f4b7a4b448bfa41d3b93a2c7, type: 2}
